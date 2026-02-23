@@ -187,7 +187,26 @@ public class PalindromeCheckerApp {
         } else {
             System.out.println("Result: \"" + inps + "\" is not a Palindrome.");
         }
-
+        System.out.print("Enter a string for recursive check: ");
+        String recursiveInput = scanner.nextLine();
+        String cleanRecInput = recursiveInput.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+        boolean[] resultHolder = {true};
+        class Recursor {
+            void check(int start, int end) {
+                if (start >= end) return;
+                if (cleanRecInput.charAt(start) != cleanRecInput.charAt(end)) {
+                    resultHolder[0] = false;
+                    return;
+                }
+                check(start + 1, end - 1);
+            }
+        }
+        new Recursor().check(0, cleanRecInput.length() - 1);
+        if (resultHolder[0]) {
+            System.out.println("\"" + recursiveInput + "\" is a palindrome (checked recursively).");
+        } else {
+            System.out.println("\"" + recursiveInput + "\" is not a palindrome (checked recursively).");
+        }
         scanner.close();
     }
 }
