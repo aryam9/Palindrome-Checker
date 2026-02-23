@@ -207,6 +207,27 @@ public class PalindromeCheckerApp {
         } else {
             System.out.println("\"" + recursiveInput + "\" is not a palindrome (checked recursively).");
         }
+        System.out.print("Enter a string to check: ");
+        String inga = scanner.nextLine();
+        String normalized = inga.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+
+        int lefty = 0;
+        int righty = normalized.length() - 1;
+        boolean isPalin = true;
+
+        while (lefty < righty) {
+            if (normalized.charAt(lefty) != normalized.charAt(righty)) {
+                isPalin= false;
+                break;
+            }
+            lefty++;
+            righty--;
+        }
+        if (isPalin) {
+            System.out.println("The string is a palindrome!");
+        } else {
+            System.out.println("The string is not a palindrome.");
+        }
         scanner.close();
     }
 }
