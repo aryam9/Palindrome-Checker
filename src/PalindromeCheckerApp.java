@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Stack;
 public class PalindromeCheckerApp {
         public static void main(String[] args) {
             String appName = "Palindrome Checker Pro";
@@ -57,6 +58,24 @@ public class PalindromeCheckerApp {
                     System.out.println("Result : '" + input + "' is not a Palindrome.");
                 }
             }
+            Stack<Character> stack = new Stack<>();
+            System.out.print("Enter a string: ");
+            String inp = scanner.nextLine();
+            String cleanedInput = inp.replaceAll("\\s+", "").toLowerCase();
+            for (int i = 0; i < cleanedInput.length(); i++) {
+                stack.push(cleanedInput.charAt(i));
+            }
+            StringBuilder reversedInput = new StringBuilder();
+            while (!stack.isEmpty()) {
+                reversedInput.append(stack.pop());
+            }
+            if (cleanedInput.equals(reversedInput.toString())) {
+                System.out.println("\"" + inp + "\" is a palindrome.");
+            }
+            else {
+                System.out.println("\"" + inp + "\" is not a palindrome.");
+            }
+
             scanner.close();
         }
 }
