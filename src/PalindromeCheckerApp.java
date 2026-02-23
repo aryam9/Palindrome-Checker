@@ -2,6 +2,8 @@ import java.util.Scanner;
 import java.util.Stack;
 import java.util.Queue;
 import java.util.LinkedList;
+import java.util.ArrayDeque;
+import java.util.Deque;
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
         String appName = "Palindrome Checker Pro";
@@ -97,6 +99,29 @@ public class PalindromeCheckerApp {
         }
         else {
             System.out.println(inputter + " is not a palindrome.");
+        }
+        System.out.print("Enter a string to check: ");
+        String in = scanner.nextLine();
+        String cleanerInput = in.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+        boolean isPally = true;
+        if (!cleanerInput.isEmpty()) {
+            Deque<Character> charDeque = new ArrayDeque<>();
+            for (char ch : cleanerInput.toCharArray()) {
+                charDeque.addLast(ch);
+            }
+            while (charDeque.size() > 1) {
+                Character front = charDeque.removeFirst();
+                Character rear = charDeque.removeLast();
+                if (!front.equals(rear)) {
+                    isPally = false;
+                    break;
+                }
+            }
+        }
+        if (isPally) {
+            System.out.println(in + " is a palindrome.");
+        } else {
+            System.out.println(in + " is not a palindrome.");
         }
         scanner.close();
     }
