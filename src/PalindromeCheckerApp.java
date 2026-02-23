@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class PalindromeCheckerApp {
         public static void main(String[] args) {
             String appName = "Palindrome Checker Pro";
@@ -21,7 +22,22 @@ public class PalindromeCheckerApp {
             else {
                 System.out.println(original + " is not a palindrome.");
             }
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Enter a string to check if it's a palindrome: ");
+            String useroriginal = scanner.nextLine();
+            String userreversed = "";
+            for (int i = useroriginal.length() - 1; i >= 0; i--) {
+                userreversed += useroriginal.charAt(i);
+            }
+            if (useroriginal.equalsIgnoreCase(userreversed)) {
+                System.out.println("Result: '" + useroriginal + "' is a palindrome.");
+            }
+            else {
+                System.out.println("Result: '" + useroriginal + "' is not a palindrome.");
+            }
+            scanner.close();
         }
 }
+
 
 
