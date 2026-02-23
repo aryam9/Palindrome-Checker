@@ -123,6 +123,71 @@ public class PalindromeCheckerApp {
         } else {
             System.out.println(in + " is not a palindrome.");
         }
+         class Node {
+            char data;
+            Node next;
+
+            Node(char data) {
+                this.data = data;
+                this.next = null;
+            }
+        }
+        System.out.print("Enter a string to check: ");
+        String inps = scanner.nextLine();
+        String cleanyInput = inps.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+
+        if (cleanyInput.isEmpty()) {
+            System.out.println("Empty string is considered a palindrome.");
+            scanner.close();
+            return;
+        }
+        Node head = null;
+        Node tail = null;
+        for (char ch : cleanyInput.toCharArray()) {
+            Node newNode = new Node(ch);
+            if (head == null) {
+                head = newNode;
+                tail = newNode;
+            } else {
+                tail.next = newNode;
+                tail = newNode;
+            }
+        }
+        Node slow = head;
+        Node fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        Node prev = null;
+        Node current = slow;
+        Node next = null;
+        while (current != null) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        Node secondHalfHead = prev;
+        Node firstHalf = head;
+        boolean isPals = true;
+        Node tempSecond = secondHalfHead;
+
+        while (tempSecond != null) {
+            if (firstHalf.data != tempSecond.data) {
+                isPals = false;
+                break;
+            }
+            firstHalf = firstHalf.next;
+            tempSecond = tempSecond.next;
+        }
+
+        if (isPals) {
+            System.out.println("Result: \"" + inps + "\" is a Palindrome.");
+        } else {
+            System.out.println("Result: \"" + inps + "\" is not a Palindrome.");
+        }
+
         scanner.close();
     }
 }
