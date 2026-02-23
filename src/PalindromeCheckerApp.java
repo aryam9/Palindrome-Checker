@@ -9,7 +9,19 @@ public class PalindromeCheckerApp {
             System.out.println("========================================");
 
             System.out.println("System initialized. Ready for input...");
-
+            String original = "madam";
+            String reversed = "";
+            int length = original.length();
+            for (int i = length - 1; i >= 0; i--) {
+                reversed = reversed + original.charAt(i);
+            }
+            if (original.equals(reversed)) {
+                System.out.println(original + " is a palindrome.");
+            }
+            else {
+                System.out.println(original + " is not a palindrome.");
+            }
         }
-    }
+}
+
 
