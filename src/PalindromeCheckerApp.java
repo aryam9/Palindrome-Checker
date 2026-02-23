@@ -18,8 +18,7 @@ public class PalindromeCheckerApp {
             }
             if (original.equals(reversed)) {
                 System.out.println(original + " is a palindrome.");
-            }
-            else {
+            } else {
                 System.out.println(original + " is not a palindrome.");
             }
             Scanner scanner = new Scanner(System.in);
@@ -31,13 +30,38 @@ public class PalindromeCheckerApp {
             }
             if (useroriginal.equalsIgnoreCase(userreversed)) {
                 System.out.println("Result: '" + useroriginal + "' is a palindrome.");
-            }
-            else {
+            } else {
                 System.out.println("Result: '" + useroriginal + "' is not a palindrome.");
+            }
+            String input = "radar";
+            if (input == null || input.isEmpty()) {
+                System.out.println("Empty string.");
+            } else {
+                char[] charArray = input.toCharArray();
+                int start = 0;
+                int end = charArray.length - 1;
+                boolean isPalindrome = true;
+
+                while (start < end) {
+                    if (charArray[start] != charArray[end]) {
+                        isPalindrome = false;
+                        break;
+                    }
+                    start++;
+                    end--;
+                }
+
+                if (isPalindrome) {
+                    System.out.println("Result : '" + input + "' is a Palindrome.");
+                } else {
+                    System.out.println("Result : '" + input + "' is not a Palindrome.");
+                }
             }
             scanner.close();
         }
 }
+
+
 
 
 
