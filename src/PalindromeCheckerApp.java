@@ -5,6 +5,63 @@ import java.util.LinkedList;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.*;
+ class PalindromeBenchmark {
+     static boolean twoPointer(String s) {
+         String clean2 = s.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+         int left2 = 0, right2 = clean2.length() - 1;
+
+         while (left2 < right2)
+             if (clean2.charAt(left2++) != clean2.charAt(right2--))
+                 return false;
+
+         return true;
+     }
+
+     static boolean stackMethod(String s) {
+         String clean3 = s.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+         Stack<Character> stack = new Stack<>();
+
+         for (char c : clean3.toCharArray())
+             stack.push(c);
+
+         for (char c : clean3.toCharArray())
+             if (c != stack.pop())
+                 return false;
+
+         return true;
+     }
+
+     static boolean dequeMethod(String s) {
+         String clean4 = s.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+         Deque<Character> dq = new ArrayDeque<>();
+
+         for (char c : clean4.toCharArray())
+             dq.addLast(c);
+
+         while (dq.size() > 1)
+             if (!dq.removeFirst().equals(dq.removeLast()))
+                 return false;
+
+         return true;
+     }
+
+     static boolean recursiveMethod(String s) {
+         String clean5 = s.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+         return rec(clean5, 0, clean5.length() - 1);
+     }
+
+     static boolean rec(String s, int l, int r) {
+         if (l >= r) return true;
+         if (s.charAt(l) != s.charAt(r)) return false;
+         return rec(s, l + 1, r - 1);
+     }
+
+     static long measure(Runnable algo) {
+         long start = System.nanoTime();
+         algo.run();
+         return System.nanoTime() - start;
+     }
+ }
 class PalindromeCheck {
     private String input1;
     public PalindromeCheck(String input1) {
@@ -320,6 +377,23 @@ public class PalindromeCheckerApp {
         String input2 = scanner.nextLine();
         boolean result = checked.check(input2);
         System.out.println(result ? "Palindrome" : "Not Palindrome");
+        System.out.print("Enter string: ");
+        String input3 = scanner.nextLine();
+        System.out.println("\nRunning benchmarks...\n");
+        boolean r1 = PalindromeBenchmark.twoPointer(input3);
+        long t1 = PalindromeBenchmark.measure(() -> PalindromeBenchmark.twoPointer(input3));
+        boolean r2 = PalindromeBenchmark.stackMethod(input3);
+        long t2 = PalindromeBenchmark.measure(() -> PalindromeBenchmark.stackMethod(input3));
+        boolean r3 = PalindromeBenchmark.dequeMethod(input3);
+        long t3 = PalindromeBenchmark.measure(() -> PalindromeBenchmark.dequeMethod(input3));
+        boolean r4 = PalindromeBenchmark.recursiveMethod(input3);
+        long t4 = PalindromeBenchmark.measure(() -> PalindromeBenchmark.recursiveMethod(input3));
+        System.out.println("\nAlgorithm Results + Performance");
+        System.out.println("--------------------------------");
+        System.out.println("Two Pointer  : " + r1 + " | " + t1 + " ns");
+        System.out.println("Stack        : " + r2 + " | " + t2 + " ns");
+        System.out.println("Deque        : " + r3 + " | " + t3 + " ns");
+        System.out.println("Recursive    : " + r4 + " | " + t4 + " ns");
         scanner.close();
     }
 }
