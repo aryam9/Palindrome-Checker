@@ -4,6 +4,24 @@ import java.util.Queue;
 import java.util.LinkedList;
 import java.util.ArrayDeque;
 import java.util.Deque;
+class PalindromeCheck {
+    private String input1;
+    public PalindromeCheck(String input1) {
+        this.input1 = input1.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+    }
+    public boolean checkPalindrome() {
+        int left1 = 0;
+        int right1 = input1.length() - 1;
+        while (left1 < right1) {
+            if (input1.charAt(left1) != input1.charAt(right1)) {
+                return false;
+            }
+            left1++;
+            right1--;
+        }
+        return true;
+    }
+}
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
         String appName = "Palindrome Checker Pro";
@@ -228,12 +246,17 @@ public class PalindromeCheckerApp {
         } else {
             System.out.println("The string is not a palindrome.");
         }
+        System.out.print("Enter string: ");
+        String input1 = scanner.nextLine();
+        PalindromeCheck checker = new PalindromeCheck(input1);
+        if (checker.checkPalindrome()) {
+            System.out.println("It is a palindrome.");
+        } else {
+            System.out.println("Not a palindrome.");
+        }
         scanner.close();
     }
 }
-
-
-
 
 
 
